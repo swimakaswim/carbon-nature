@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Jang — Fractional AI Implementation</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'PP Neue Montreal', 'Helvetica Neue', sans-serif;
+            background: #fff;
+            color: #000;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection { background: #000; color: #fff; }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: #fff;
+            border-bottom: 1px solid #fff;
+            transition: border-color 0.3s;
+        }
+
+        nav.scrolled {
+            border-color: #000;
+        }
+
+        .nav-name {
+            font-family: 'PP Supply Mono', 'PP Fraktion Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .nav-email a {
+            font-family: 'PP Supply Mono', 'PP Fraktion Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1px solid #000;
+            padding-bottom: 1px;
+            transition: border-color 0.15s;
+        }
+
+        .nav-email a:hover {
+            border-color: transparent;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            padding: 10rem 3rem 5rem;
+        }
+
+        .hero-title {
+            font-family: 'ES Build TRIAL Semi Bold', 'ES Build TRIAL Medium', 'ES Build TRIAL', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'PP Neue Montreal', sans-serif;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            font-weight: 400;
+            line-height: 1.65;
+            max-width: 520px;
+        }
+
+        .hero-duration {
+            font-family: 'PP Supply Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            color: #000;
+        }
+
+        /* ─── PROCESS ─── */
+        .process {
+            padding: 0 3rem;
+            border-top: 2px solid #000;
+        }
+
+        .process-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #000;
+        }
+
+        .process-label {
+            font-family: 'PP Supply Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .process-sub {
+            font-family: 'PP Supply Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border-bottom: 1px solid #000;
+            min-height: 0;
+        }
+
+        .step-left {
+            padding: 2.5rem 2rem 2.5rem 0;
+            border-right: 1px solid #000;
+        }
+
+        .step-number {
+            font-family: 'ES Build TRIAL Semi Bold', 'ES Build TRIAL Medium', 'ES Build TRIAL', sans-serif;
+            font-size: 4rem;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: #000;
+        }
+
+        .step-name {
+            font-family: 'ES Build TRIAL Semi Bold', 'ES Build TRIAL Medium', 'ES Build TRIAL', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-top: 0.75rem;
+        }
+
+        .step-desc {
+            font-family: 'PP Neue Montreal', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.65;
+            padding: 2.5rem 0 2.5rem 2.5rem;
+            max-width: 580px;
+        }
+
+        /* ─── CONTACT ─── */
+        .contact {
+            border-top: 2px solid #000;
+            padding: 6rem 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: end;
+        }
+
+        .contact-heading {
+            font-family: 'ES Build TRIAL Semi Bold', 'ES Build TRIAL Medium', 'ES Build TRIAL', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        .contact-right {
+            text-align: right;
+        }
+
+        .contact-email {
+            font-family: 'PP Neue Montreal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .contact-email a {
+            color: #000;
+            text-decoration: none;
+            border-bottom: 2px solid #000;
+            padding-bottom: 2px;
+            transition: border-color 0.15s;
+        }
+
+        .contact-email a:hover {
+            border-color: transparent;
+        }
+
+        .contact-note {
+            font-family: 'PP Supply Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 700px) {
+            nav { padding: 1.2rem 1.5rem; }
+
+            .hero {
+                padding: 7rem 1.5rem 3.5rem;
+            }
+
+            .hero-duration {
+                margin-top: 1.5rem;
+            }
+
+            .process { padding: 0 1.5rem; }
+
+            .step {
+                grid-template-columns: 1fr;
+            }
+
+            .step-left {
+                border-right: none;
+                padding: 2rem 0 0;
+            }
+
+            .step-number {
+                font-size: 2.5rem;
+            }
+
+            .step-desc {
+                padding: 1rem 0 2rem;
+            }
+
+            .contact {
+                padding: 4rem 1.5rem;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-right {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="nav">
+        <div class="nav-name">Ali Jang</div>
+        <div class="nav-email"><a href="mailto:ali@sparlo.ai">ali@sparlo.ai</a></div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-title">Fractional AI Implementation Lead</div>
+        <h1>I help teams identify bottlenecks in their processes and workflows, and build or implement AI tools to resolve them.</h1>
+        <div class="hero-duration">12-week engagement</div>
+    </section>
+
+    <section class="process">
+        <div class="process-header">
+            <div class="process-label">Process</div>
+            <div class="process-sub">Research — Build — Implement</div>
+        </div>
+        <div class="step">
+            <div class="step-left">
+                <div class="step-number">01</div>
+                <div class="step-name">Research</div>
+            </div>
+            <div class="step-desc">I interview each team member to understand where they actually spend time, where they get stuck, and what's tedious. I map the opportunities and prioritize by impact.</div>
+        </div>
+        <div class="step">
+            <div class="step-left">
+                <div class="step-number">02</div>
+                <div class="step-name">Build</div>
+            </div>
+            <div class="step-desc">Custom AI tools and workflows around what I find. If an existing tool is the right call, I implement that instead. Whatever actually works.</div>
+        </div>
+        <div class="step">
+            <div class="step-left">
+                <div class="step-number">03</div>
+                <div class="step-name">Implement</div>
+            </div>
+            <div class="step-desc">Hands-on training targeted to each person's role. Not a generic workshop. Feedback loops until adoption actually sticks.</div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="contact-heading">Get in Touch</div>
+        <div class="contact-right">
+            <p class="contact-email"><a href="mailto:ali@sparlo.ai">ali@sparlo.ai</a></p>
+            <p class="contact-note">Fractional AI Lead</p>
+        </div>
+    </section>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+    </script>
+
+</body>
+</html>
