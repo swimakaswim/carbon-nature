@@ -3,307 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carbon Nature — Fractional AI Implementation</title>
+    <title>Thank You Goodnight — Curated Local Shows in Austin</title>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'PP Neue Montreal', 'Helvetica Neue', sans-serif;
-            background: #fff;
-            color: #000;
+            font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0f;
+            color: #e8e8e8;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
 
-        ::selection { background: #000; color: #fff; }
+        ::selection { background: #e8c547; color: #0a0a0f; }
 
         /* ─── NAV ─── */
         nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 3rem;
-            background: #fff;
-            border-bottom: 1px solid #fff;
-            transition: border-color 0.3s;
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid #1a1a25;
         }
 
-        nav.scrolled {
-            border-color: #000;
-        }
-
-        .nav-name {
-            font-family: 'PP Supply Mono', 'PP Fraktion Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .nav-email a {
-            font-family: 'PP Supply Mono', 'PP Fraktion Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-            color: #000;
-            text-decoration: none;
-            border-bottom: 1px solid #000;
-            padding-bottom: 1px;
-            transition: border-color 0.15s;
-        }
-
-        .nav-email a:hover {
-            border-color: transparent;
-        }
-
-        /* ─── HERO ─── */
-        .hero {
-            padding: 10rem 3rem 5rem;
-        }
-
-        .hero-title {
-            font-family: 'PP Neue Machina Inktrap', monospace;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 500;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            text-transform: uppercase;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero h1 {
-            font-family: 'PP Neue Montreal', sans-serif;
-            font-size: clamp(1rem, 1.5vw, 1.15rem);
-            font-weight: 400;
-            line-height: 1.65;
-            max-width: 520px;
-        }
-
-        .hero-duration {
-            font-family: 'PP Supply Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-top: 1.5rem;
-            color: #000;
-        }
-
-        /* ─── PROCESS ─── */
-        .process {
-            padding: 0 3rem;
-            border-top: 2px solid #000;
-        }
-
-        .process-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #000;
-        }
-
-        .process-label {
-            font-family: 'PP Supply Mono', monospace;
+        .nav-brand {
             font-size: 0.65rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
+            color: #666;
         }
 
-        .process-sub {
-            font-family: 'PP Supply Mono', monospace;
+        .nav-link {
             font-size: 0.65rem;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
+            color: #888;
+            text-decoration: none;
         }
 
-        .step {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            border-bottom: 1px solid #000;
-            min-height: 0;
+        .nav-link:hover { color: #e8c547; }
+
+        /* ─── HERO ─── */
+        .hero {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
         }
 
-        .step-left {
-            padding: 2.5rem 2rem 2.5rem 0;
-            border-right: 1px solid #000;
-        }
-
-        .step-number {
-            font-family: 'PP Neue Machina Inktrap', monospace;
-            font-size: 4rem;
-            font-weight: 500;
-            line-height: 1;
-            letter-spacing: -0.04em;
-            color: #000;
-        }
-
-        .step-name {
-            font-family: 'PP Neue Machina Inktrap', monospace;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            margin-top: 0.75rem;
-        }
-
-        .step-desc {
-            font-family: 'PP Neue Montreal', sans-serif;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.65;
-            padding: 2.5rem 0 2.5rem 2.5rem;
-            max-width: 580px;
-        }
-
-        /* ─── CONTACT ─── */
-        .contact {
-            border-top: 2px solid #000;
-            padding: 6rem 3rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: end;
-        }
-
-        .contact-heading {
-            font-family: 'PP Neue Machina Inktrap', monospace;
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
-            font-weight: 500;
-            line-height: 1.1;
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            font-weight: 800;
             letter-spacing: -0.03em;
+            line-height: 1;
             text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 1.5rem;
         }
 
-        .contact-right {
-            text-align: right;
-        }
-
-        .contact-email {
-            font-family: 'PP Neue Montreal', sans-serif;
+        .hero-sub {
             font-size: 1.1rem;
             font-weight: 400;
+            line-height: 1.6;
+            color: #999;
+            max-width: 420px;
+            margin: 0 auto 2.5rem;
         }
 
-        .contact-email a {
-            color: #000;
-            text-decoration: none;
-            border-bottom: 2px solid #000;
-            padding-bottom: 2px;
-            transition: border-color 0.15s;
+        .hero-ctas {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .contact-email a:hover {
-            border-color: transparent;
-        }
-
-        .contact-note {
-            font-family: 'PP Supply Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
+        .cta {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            margin-top: 1rem;
+            text-decoration: none;
+            transition: opacity 0.15s;
         }
 
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 700px) {
-            nav { padding: 1.2rem 1.5rem; }
+        .cta:hover { opacity: 0.85; }
 
-            .hero {
-                padding: 7rem 1.5rem 3.5rem;
-            }
+        .cta-primary {
+            background: #e8c547;
+            color: #0a0a0f;
+        }
 
-            .hero-duration {
-                margin-top: 1.5rem;
-            }
+        .cta-secondary {
+            background: transparent;
+            color: #e8c547;
+            border: 1px solid #e8c547;
+        }
 
-            .process { padding: 0 1.5rem; }
+        /* ─── HOW IT WORKS ─── */
+        .how {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
 
-            .step {
-                grid-template-columns: 1fr;
-            }
+        .how-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
 
-            .step-left {
-                border-right: none;
-                padding: 2rem 0 0;
-            }
+        .how-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
 
-            .step-number {
-                font-size: 2.5rem;
-            }
+        .how-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
 
-            .step-desc {
-                padding: 1rem 0 2rem;
-            }
+        .how-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #e8c547;
+            flex-shrink: 0;
+            width: 2rem;
+            text-align: right;
+            line-height: 1.2;
+        }
 
-            .contact {
-                padding: 4rem 1.5rem;
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+        .how-text {
+            font-size: 0.95rem;
+            color: #aaa;
+            line-height: 1.55;
+        }
 
-            .contact-right {
-                text-align: left;
-            }
+        .how-text strong { color: #e8e8e8; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid #1a1a25;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover { color: #e8c547; }
+
+        @media (max-width: 500px) {
+            nav { padding: 1rem 1.25rem; }
+            .hero { padding: 4rem 1.25rem 3rem; }
+            .how { padding: 0 1.25rem 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav id="nav">
-        <div class="nav-name">Carbon Nature</div>
-        <div class="nav-email"><a href="mailto:ali@sparlo.ai">ali@sparlo.ai</a></div>
+    <nav>
+        <span class="nav-brand">Carbon Nature</span>
+        <a href="/consulting.html" class="nav-link">Consulting</a>
     </nav>
 
     <section class="hero">
-        <div class="hero-title">Fractional AI Implementation Lead</div>
-        <h1>I help teams identify bottlenecks in their processes and workflows, and build or implement AI tools to resolve them.</h1>
-        <div class="hero-duration">12-week engagement</div>
-    </section>
-
-    <section class="process">
-        <div class="process-header">
-            <div class="process-label">Process</div>
-            <div class="process-sub">Research — Build — Implement</div>
-        </div>
-        <div class="step">
-            <div class="step-left">
-                <div class="step-number">01</div>
-                <div class="step-name">Research</div>
-            </div>
-            <div class="step-desc">I interview each team member to understand where they actually spend time, where they get stuck, and what's tedious. I map the opportunities and prioritize by impact.</div>
-        </div>
-        <div class="step">
-            <div class="step-left">
-                <div class="step-number">02</div>
-                <div class="step-name">Build</div>
-            </div>
-            <div class="step-desc">Custom AI tools and workflows around what I find. If an existing tool is the right call, I implement that instead. Whatever actually works.</div>
-        </div>
-        <div class="step">
-            <div class="step-left">
-                <div class="step-number">03</div>
-                <div class="step-name">Implement</div>
-            </div>
-            <div class="step-desc">Hands-on training targeted to each person's role. Not a generic workshop. Feedback loops until adoption actually sticks.</div>
+        <h1 class="hero-title">Thank You Goodnight</h1>
+        <p class="hero-sub">Curated local shows in Austin this week. Discover rising artists, RSVP, and see who's going.</p>
+        <div class="hero-ctas">
+            <a href="https://goodshowsatx.vercel.app" class="cta cta-primary">See This Week's Shows</a>
+            <a href="https://goodshowsatx.vercel.app/submit" class="cta cta-secondary">Submit Your Show</a>
         </div>
     </section>
 
-    <section class="contact">
-        <div class="contact-heading">Get in Touch</div>
-        <div class="contact-right">
-            <p class="contact-email"><a href="mailto:ali@sparlo.ai">ali@sparlo.ai</a></p>
-            <p class="contact-note">Fractional AI Lead</p>
+    <section class="how">
+        <div class="how-title">How It Works</div>
+        <div class="how-steps">
+            <div class="how-step">
+                <span class="how-num">1</span>
+                <span class="how-text"><strong>Artists submit flyers</strong> via text or the web form. We extract the details and add the show to the weekly lineup.</span>
+            </div>
+            <div class="how-step">
+                <span class="how-num">2</span>
+                <span class="how-text"><strong>We curate the best local shows</strong> every week — up-and-coming artists at venues across Austin.</span>
+            </div>
+            <div class="how-step">
+                <span class="how-num">3</span>
+                <span class="how-text"><strong>Subscribers get a weekly text</strong> every Monday with the lineup and a link to RSVP and see who's going.</span>
+            </div>
         </div>
     </section>
 
-    <script>
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 60);
-        });
-    </script>
+    <footer>
+        <div class="footer-brand">Thank You Goodnight is a Carbon Nature LLC project &middot; Austin, TX</div>
+        <div class="footer-links">
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/consulting.html">Consulting</a>
+            <a href="mailto:ali@sparlo.ai">Contact</a>
+        </div>
+    </footer>
 
 </body>
 </html>
